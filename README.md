@@ -57,13 +57,16 @@ only need these for hosts you want on a dashboard of their own.
 
 ## Installing
 
-Through the Marketplace (called HACS before Home Assistant 2026.11), as a custom repository:
+Through the Marketplace of Home Assistant 2026.11 and newer:
 
-1. Open the **Marketplace**, open the menu in the top right corner and choose
-   **Custom repositories**.
-2. Enter `https://github.com/Quicgate/quicgate-homeassistant`, choose **Integration** as the
-   type, and add it.
-3. Find **quicgate** in the list, download it, and restart Home Assistant.
+1. Open the **Marketplace** and press **Add from link** in the top right corner.
+2. Enter `https://github.com/Quicgate/quicgate-homeassistant` and press **Add**.
+3. Search the Marketplace for **quicgate**, open it, press **Install**, and restart Home
+   Assistant.
+
+On an older Home Assistant with HACS it is the same idea: HACS, the menu in the top right
+corner, **Custom repositories**, the address above with type **Integration**, then download
+quicgate and restart.
 
 By hand: copy the folder `custom_components/quicgate` from this repository into the
 `custom_components` folder of your Home Assistant configuration, and restart.
