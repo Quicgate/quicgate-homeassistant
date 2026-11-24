@@ -1,0 +1,83 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect quicgate",
+        "description": "First make an API token in quicgate: your account menu, **API tokens**, **New token**. Choose **Monitoring, and switch hosts on or off** to get a switch per host, or **Monitoring** to only watch. quicgate has to be version 1.19.0 or newer.",
+        "data": {
+          "name": "Name",
+          "url": "Address of the admin interface",
+          "token": "API token",
+          "verify_ssl": "Check the certificate"
+        },
+        "data_description": {
+          "name": "What this quicgate is called in Home Assistant.",
+          "url": "Address and admin port, such as 192.168.1.10:81 (http unless you write https). Prefer the admin port itself over a name that quicgate proxies, so this keeps working when a proxy host is down.",
+          "token": "The token is shown once in quicgate, when you make it.",
+          "verify_ssl": "Only matters for an https address. Switch it off for a self-signed certificate."
+        }
+      },
+      "full_access": {
+        "title": "This token can do everything",
+        "description": "The token you entered has full access. Home Assistant keeps tokens in its own storage, and whoever reads this one there can change or export your whole quicgate configuration.\n\nA token of the kind **Monitoring, and switch hosts on or off** is enough for everything this integration does.",
+        "menu_options": {
+          "user": "Enter another token",
+          "use_full_token": "Use this token anyway"
+        }
+      },
+      "reauth_confirm": {
+        "title": "quicgate needs a new token",
+        "description": "quicgate at {url} no longer accepts the token. Make a new one in quicgate (your account menu, API tokens) and enter it here.",
+        "data": {
+          "token": "API token"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach a quicgate admin interface at this address.",
+      "invalid_token": "quicgate does not accept this token.",
+      "too_old": "This quicgate is older than 1.19.0. Update quicgate first.",
+      "unknown": "quicgate gave an answer this integration does not understand. The Home Assistant log has the details."
+    },
+    "abort": {
+      "already_configured": "This quicgate is already connected.",
+      "reauth_successful": "The new token works."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "backends_problem": { "name": "Backends" },
+      "certificates_problem": { "name": "Certificates" },
+      "ports_problem": { "name": "Ports" },
+      "vpn_problem": { "name": "VPN" },
+      "host_backend": { "name": "{host} backend" }
+    },
+    "sensor": {
+      "hosts_enabled": { "name": "Hosts switched on", "unit_of_measurement": "hosts" },
+      "backends_down": { "name": "Backends unreachable", "unit_of_measurement": "backends" },
+      "certificate_days": { "name": "Days until first certificate expires" },
+      "certificates_failed": { "name": "Certificates with a problem", "unit_of_measurement": "certificates" },
+      "requests": { "name": "Requests last hour", "unit_of_measurement": "requests" },
+      "blocked": { "name": "Blocked requests last hour", "unit_of_measurement": "requests" },
+      "server_errors": { "name": "Server errors last hour", "unit_of_measurement": "requests" },
+      "data_in": { "name": "Data received last hour" },
+      "data_out": { "name": "Data sent last hour" },
+      "open_connections": { "name": "Open connections", "unit_of_measurement": "connections" },
+      "banned": { "name": "Banned addresses", "unit_of_measurement": "addresses" },
+      "response_time": { "name": "Response time" },
+      "started": { "name": "Running since" },
+      "host_certificate": { "name": "{host} certificate expires" }
+    },
+    "switch": {
+      "host": { "name": "{host}" }
+    }
+  },
+  "exceptions": {
+    "switch_not_allowed": {
+      "message": "The API token may only watch. Make a token in quicgate that may switch hosts on or off, then connect quicgate again with it."
+    },
+    "switch_failed": {
+      "message": "quicgate did not switch the host: {error}"
+    }
+  }
+}

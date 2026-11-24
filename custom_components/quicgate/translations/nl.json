@@ -1,0 +1,83 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "quicgate verbinden",
+        "description": "Maak eerst een API-token in quicgate: je accountmenu, **API tokens**, **New token**. Kies **Monitoring, and switch hosts on or off** voor een schakelaar per host, of **Monitoring** om alleen mee te kijken. quicgate moet versie 1.19.0 of nieuwer zijn.",
+        "data": {
+          "name": "Naam",
+          "url": "Adres van de beheerinterface",
+          "token": "API-token",
+          "verify_ssl": "Certificaat controleren"
+        },
+        "data_description": {
+          "name": "Hoe deze quicgate in Home Assistant heet.",
+          "url": "Adres en beheerpoort, zoals 192.168.1.10:81 (http, tenzij je https schrijft). Gebruik liever de beheerpoort zelf dan een naam die quicgate doorstuurt, dan blijft dit werken als een proxy host plat ligt.",
+          "token": "quicgate toont het token één keer, op het moment dat je het maakt.",
+          "verify_ssl": "Alleen van belang bij een https-adres. Zet dit uit bij een zelfondertekend certificaat."
+        }
+      },
+      "full_access": {
+        "title": "Dit token mag alles",
+        "description": "Het token dat je invulde heeft volledige toegang. Home Assistant bewaart tokens in zijn eigen opslag, en wie dit token daar leest kan je hele quicgate-configuratie wijzigen of exporteren.\n\nEen token van de soort **Monitoring, and switch hosts on or off** is genoeg voor alles wat deze integratie doet.",
+        "menu_options": {
+          "user": "Een ander token invullen",
+          "use_full_token": "Dit token toch gebruiken"
+        }
+      },
+      "reauth_confirm": {
+        "title": "quicgate heeft een nieuw token nodig",
+        "description": "quicgate op {url} accepteert het token niet meer. Maak in quicgate een nieuw token (je accountmenu, API tokens) en vul het hier in.",
+        "data": {
+          "token": "API-token"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Op dit adres is geen beheerinterface van quicgate te bereiken.",
+      "invalid_token": "quicgate accepteert dit token niet.",
+      "too_old": "Deze quicgate is ouder dan 1.19.0. Werk quicgate eerst bij.",
+      "unknown": "quicgate gaf een antwoord dat deze integratie niet begrijpt. De details staan in het logboek van Home Assistant."
+    },
+    "abort": {
+      "already_configured": "Deze quicgate is al verbonden.",
+      "reauth_successful": "Het nieuwe token werkt."
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "backends_problem": { "name": "Backends" },
+      "certificates_problem": { "name": "Certificaten" },
+      "ports_problem": { "name": "Poorten" },
+      "vpn_problem": { "name": "VPN" },
+      "host_backend": { "name": "{host} backend" }
+    },
+    "sensor": {
+      "hosts_enabled": { "name": "Hosts ingeschakeld", "unit_of_measurement": "hosts" },
+      "backends_down": { "name": "Backends onbereikbaar", "unit_of_measurement": "backends" },
+      "certificate_days": { "name": "Dagen tot eerste certificaat verloopt" },
+      "certificates_failed": { "name": "Certificaten met een probleem", "unit_of_measurement": "certificaten" },
+      "requests": { "name": "Verzoeken laatste uur", "unit_of_measurement": "verzoeken" },
+      "blocked": { "name": "Geblokkeerde verzoeken laatste uur", "unit_of_measurement": "verzoeken" },
+      "server_errors": { "name": "Serverfouten laatste uur", "unit_of_measurement": "verzoeken" },
+      "data_in": { "name": "Data ontvangen laatste uur" },
+      "data_out": { "name": "Data verzonden laatste uur" },
+      "open_connections": { "name": "Open verbindingen", "unit_of_measurement": "verbindingen" },
+      "banned": { "name": "Gebande adressen", "unit_of_measurement": "adressen" },
+      "response_time": { "name": "Reactietijd" },
+      "started": { "name": "Draait sinds" },
+      "host_certificate": { "name": "{host} certificaat verloopt" }
+    },
+    "switch": {
+      "host": { "name": "{host}" }
+    }
+  },
+  "exceptions": {
+    "switch_not_allowed": {
+      "message": "Het API-token mag alleen meekijken. Maak in quicgate een token dat hosts aan en uit mag zetten en verbind quicgate daarmee opnieuw."
+    },
+    "switch_failed": {
+      "message": "quicgate heeft de host niet omgezet: {error}"
+    }
+  }
+}
